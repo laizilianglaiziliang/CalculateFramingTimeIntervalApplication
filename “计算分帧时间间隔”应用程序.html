@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>计算分帧时间间隔</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            text-align: left;
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>计算分帧时间间隔</h1>
+
+    <fieldset>
+        <legend>输入参数</legend>
+        <label for="f">相机焦距(mm)：</label>
+        <input type="number" id="f">
+
+        <label for="a">画幅(mm)：</label>
+        <input type="number" id="a">
+
+        <label for="H">相机与目标距离(m)：</label>
+        <input type="number" id="H">
+
+        <label for="V">相机运动速度(m/s)：</label>
+        <input type="number" id="V">
+
+        <label for="P">分帧照片重叠度(0-1)：</label>
+        <input type="number" id="P">
+    </fieldset>
+
+    <button onclick="calculateT()">计算</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateT() {
+            // 获取输入框的值
+            var P = parseFloat(document.getElementById("P").value);
+            var H = parseFloat(document.getElementById("H").value);
+            var a = parseFloat(document.getElementById("a").value);
+            var V = parseFloat(document.getElementById("V").value);
+            var f = parseFloat(document.getElementById("f").value);
+
+            // 计算 T
+            var t = (1 - P) * H * a / (V * f);
+
+            // 显示结果
+            document.getElementById("result").innerHTML = "T 的值为：" + t.toFixed(2) + " 秒";
+        }
+    </script>
+</body>
+</html>
